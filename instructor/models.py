@@ -11,7 +11,7 @@ class User(AbstractUser):
         ("Instructor","Instructor")
         
     ]
-    role=models.CharField(max_length=50,choices=role_options)
+    role=models.CharField(max_length=50,choices=role_options,default="Student")
 
 class InstructorProfile(models.Model):
     expertise=models.CharField(max_length=100,null=True)
