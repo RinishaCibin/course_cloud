@@ -18,7 +18,7 @@
     <div class="container flex justify-center items-center h-screen">
         <div class="w-[50%] border border-black bg-white p-3 shadow-2xl ">
             <h2 class="text-5xl text-center my-3 text-black">Student SignIn</h2>
-            <form action="">
+            <form method="post">
                 {% csrf_token %}
                 <input type="text" name="username" placeholder="Enter Username" class="p-1 border bg-white rounded w-full my-3">
                 <input type="password" name="password" placeholder="Enter Password" class="p-1 border bg-white rounded w-full mb-3">
