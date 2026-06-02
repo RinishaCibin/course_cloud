@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% block base %}
 <div class="w-full">
+    {% if messages %}
+    {% for msg in messages %}
+    {{msg}}
+    {% endfor %}
+    {% endif %}
     <div class="bg-gray-800 grid grid-cols-1 md:grid-cols-2">
         <div>
             <img src="https://www.pngarts.com/files/1/E-Learning-PNG-High-Quality-Image.png" alt="hero_img"

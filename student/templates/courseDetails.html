@@ -1,7 +1,52 @@
 {% extends 'base.html' %}
-
 {% block base %}
+<div class="w-full p-2">
+    <div class="grid md:grid-cols-2">
+        <div>
+            <h1 class="text-gray-700 text-shadow-lg">Course Preview</h1>
+            <iframe width="560" height="315" src="{{course.thumbnail}}" 
+            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="p-3 flex flex-col justify-around gap-2">
+            <h2 class="text-2xl text-shadow-lg">{{course.title}}</h2>
+            <h2 class="text-lg text-right">
+                <i class="fa-solid fa-chalkboard-user" style="color: rgb(14, 14, 13);"></i>
+                {{course.instructor}}</h2>
+            <div>
+                {% for i in course.category.all %}
+                <span>{{i}}</span><b>|</b>
+                {% endfor %}
+            </div>
+            <h3 class="text-lg">Rs.{{course.price}}</h3>
+            <p class="text-justify">{{course.description}}</p>
+            <h4 class="text-lg">Created At:<b>{{course.created_at}}</b></h4>
+            <h4 class="text-lg">Updated At:<b>{{course.updated_at}}</b></h4>
+            <a href="{% url 'addtocart' course.id %}" class="w-full bg-sky-700 text-white text-xl px-3 py-1 rounded border-2
+            border-blue-700 shadow-2xl hover:bg-green-600">
+            <i class="fa-solid fa-cart-arrow-down" style="color: rgb(248, 253, 252);"></i>
+            Add To Cart</a>
+            <a href="" class="w-full bg-red-700 text-white text-xl px-3 py-1 rounded border-2
+            border-blue-700 shadow-2xl hover:bg-red-900">
+            <i class="fa-solid fa-heart-circle-plus" style="color: rgb(255, 255, 255);"></i>
+             Add To Wishlist</a>
 
-<h1>Course Details</h1>
-<h3>{{course.title}}</h3>
+        </div>
+    </div>
+    <div>
+    <h3 class="text-3xl">Modules and Lessons</h3>
+    <dl>
+    {% for module in course.modules.all %}
+    <dt>
+        {{module}}
+    </dt>
+        {% for lesson in module.lessons.all %}
+        <dd>--->{{lesson}}</dd>
+        {% endfor %}
+    {% empty %}
+    <h2 class="text-2xl text-red-400">No Modules !!!</h2>
+    {% endfor %}
+    </div>
+    
+</div>
+
 {% endblock base %}

@@ -3,19 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CourseCloud-Student</title>
-    <!--Tailwind-->
+    <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!--font awsome-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" 
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <!--Navbar-->
     <!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
-<nav class="relative bg-gray-800">
+<nav class="relative bg-black after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10">
   <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
     <div class="relative flex h-16 items-center justify-between">
       <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -33,35 +28,32 @@
       </div>
       <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
         <div class="flex shrink-0 items-center">
-              <i class="fa-solid fa-cloud fa-2xl" style="color:rgb(99,230,190);"></i><span class="text-white">CourseCloud</span>
+          <i class="fa-solid fa-cloud fa-2xl" style="color: rgb(255, 212, 59);"></i><span class="text-white pl-2">Course Cloud</span>
         </div>
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
-            <a href="#" aria-current="page" 
-              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Home</a>
-            <a href="#" 
-              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Wishlist</a>
-            <a href="#" 
-              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Cart</a>
-            <a href="#" 
-              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Mycourses</a>
+            <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
+            <a href="{% url 'shome' %}" aria-current="page" class="rounded-md bg-gray-950/50 px-3 py-2 text-sm font-medium text-white">Home</a>
+            <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Wishlist</a>
+            <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Cart</a>
+            <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">MyCourses</a>
           </div>
         </div>
       </div>
-      <div>
-        <div class="absolute inset-y-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-          <button class="text-red-600 px-3 py-2 rounded-md hover:bg-white/5">Logout</button>
-        </div>
-       
+      <div class="text-yellow-500 bg-white/5 px-2 py-1 rounded">
+        <i class="fa-solid fa-user" style="color: rgb(66, 0, 255);"></i>
+        {{request.user}}
+      </div>
+      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+      <button class="text-red-600 px-y py-2 rounded-md hover:bg-white/5">Logout</button>
       </div>
     </div>
   </div>
 
   <el-disclosure id="mobile-menu" hidden class="block sm:hidden">
     <div class="space-y-1 px-2 pt-2 pb-3">
-      <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
-      <a href="#" aria-current="page" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white">Dashboard</a>
+      <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
+      <a href="#" aria-current="page" class="block rounded-md bg-gray-950/50 px-3 py-2 text-base font-medium text-white">Dashboard</a>
       <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">Team</a>
       <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">Projects</a>
       <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">Calendar</a>
@@ -69,33 +61,25 @@
   </el-disclosure>
 </nav>
 <div style="min-height: 70vh;">
-  {% block base %}
-  {% endblock base %}
+{% block base %}
+{% endblock base %}
 </div>
-
-<!--footer-->
-<div class="container p-4 bg-gray-800 text-white">
-  <div class="grid grid-cols-2">
-    <div>
-      <h4>
-        <i class="fa-solid fa-cloud fa-2xl" style="color:rgb(99,230,190);"></i>
-          CourseCloud
-      </h4>
-      <p class="text-justify">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam dolor suscipit illum nobis molestias? Adipisci numquam tempore 
-        repellendus? Voluptatibus, sunt corrupti modi ipsam eum expedita eos a consequuntur quas odit!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio asperiores possimus hic officiis ratione minima aliquid, ipsam, 
-        mollitia tempore sit adipisci, commodi quo placeat officia quidem eligendi. Consequuntur, fugit fugiat!
-      </p>
+<!-- footer -->
+ <div class="w-full p-4 bg-black text-white">
+    <div class="grid grid-cols-2">
+        <div>
+            <h4 class="font-bold mb-2">
+            <i class="fa-solid fa-cloud " style="color: rgb(255, 212, 59);"></i>
+            Course Cloud</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, aut quam harum magni saepe porro provident beatae amet facilis minima. Maiores suscipit porro reprehenderit necessitatibus odit ut ratione enim assumenda.</p>
+        </div>
+        <div class="p2">
+            <h4>Feedback</h4>
+            <textarea name="" id="" class="w-full bg-white border rounded my-2"></textarea>
+            <button class="bg-green-700 text-white my-2 p-2 rounded">Send</button>
+        </div>
     </div>
-    <div class="p-2">
-      <h4>Feedback</h4>
-      <textarea name="" class="w-full bg-white border rounded my-2" id=""></textarea>
-      <button class="bg-green-700 text-white my-2 p-2 rounded">Send</button>
-    </div>
-  </div>
-    <h6 class="text-center font-bold">CourseCloud 2026 &copy; Allright Reserved</h6>
-</div>
-    
+    <h6 class="text-center font-bold">Course Cloud 2026 &copy; AllRights Reserved</h6>
+ </div>
 </body>
 </html>

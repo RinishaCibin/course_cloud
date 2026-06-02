@@ -6,6 +6,7 @@ from django.urls import reverse_lazy,reverse
 from django.contrib.auth import authenticate,login
 from django.contrib import messages
 from instructor.models import Course
+from student.models import*
 
 # Create your views here.
 
@@ -55,3 +56,17 @@ class CourseDetailsView(DetailView):
     queryset=Course.objects.all()
     pk_url_kwarg="cid"
     context_object_name="course"
+
+class AddtoCartView(View):
+    def get(self,request,**kwargs):
+        cid=kwargs.get('cid')
+        course=Course.objects.get(id=cid)
+        student=request.user
+        (object,created)=Cart.objects.get_or_create(course_object=course,student_object=student)
+        print(object,created)
+        if created:
+            return redirect('shome')
+        else:
+            messages.warning(request,"Course Already added to cart!!")
+            return redirect('shome')
+
