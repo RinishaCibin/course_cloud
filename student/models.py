@@ -15,3 +15,7 @@ class Order(models.Model):
     razr_pay_order_id=models.CharField(max_length=100,null=True)
     created_at=models.DateTimeField(auto_now_add=True)
     total=models.DecimalField(max_digits=10,decimal_places=2)
+
+class WishList(models.Model):
+    course_object=models.ForeignKey(Course,on_delete=models.CASCADE,related_name="wish_course_items")
+    student_object=models.ForeignKey(User,on_delete=models.CASCADE,related_name="wish_user_items")

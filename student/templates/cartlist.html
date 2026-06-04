@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block base %}
+<h1>Cart Summery</h1>
+<div class="md:grid grid-cols-4 gap-1">
+    <div class="col-span-3 p-3">
+        {% if data %}
+        <table class="table-auto border border-gray-600 text-xl w-full">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-500">SN</th>
+                    <th class="border border-gray-500">Course</th>
+                    <th class="border border-gray-500">Image</th>
+                    <th class="border border-gray-500">Price</th>
+                    <th class="border border-gray-500">Added</th>
+                    <th class="border border-gray-500"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td class="border border-gray-500">{{forloop.counter}}</td>
+                    <td class="border border-gray-500">{{i.course_object.title}}</td>
+                    <td class="border border-gray-500">
+                        <img src="{{i.course_object.course_picture.url}}" alt="" width="200px">
+                    </td>
+                    <td class="border border-gray-500">{{i.course_object.price}}</td>
+                    <td class="border border-gray-500">{{i.added_at}}</td>
+                    <td class="border border-gray-500">
+                        <a href="{% url 'remcart' i.id %}"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <img src="https://bexcart.com/assets/images/empty-cart.gif" alt="" width="300px">
+        {% endif %}
+    </div>
+    <div>
+    <div class="border-3 border-gray-700 rounded p-1 mt-4">
+    <div class="flex flex-col gap-2">
+        <h1>Total Courses : <span>{{count}}</span></h1>
+        <h1>Total Price : <span>{{cart_total}}</span></h1>
+    </div>
+    <a href="{% url 'placeorder' %}" class="bg-gray-800 text-white text-xl w-full block text-center border border-black shadow-2xl rounded">Checkout</a>
+</div>
+</div>
+</div>
+
+{% endblock base %}

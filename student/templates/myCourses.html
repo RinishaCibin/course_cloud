@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block base %}
+<h1 class="text-3xl m-2">Purchased Courses</h1>
+<div class="w-full flex flex-wrap gap-2 justify-around my-5">
+{% for i in data %}
+    {% for course in i.course_object.all %}
+    <div class="w-[16rem] border-2 shadow-2xl p-2">
+        <img src="{{course.course_picture.url}}" alt="course_img" style="height: 150px; width: 100%;">
+        <h3 class="text-xl my-1">{{course.title}}</h3>
+        <a href="" 
+        class="bg-gray-600 text-white border border-black w-full block text-center rounded py-2 px-1 hover:bg-gray-800">
+        Start Learning</a>
+    </div>
+    {% endfor %}
+    {% empty %}
+    <h3 class="text-3xl text-red-500 text-center">No Courses Purchased</h3>
+{% endfor %}
+</div>
+{% endblock base %}

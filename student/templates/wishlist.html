@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block base %}
+<h1 class="font-bold">WishList</h1>
+<div class="">
+    {% if data %}
+    <table class="w-full">
+        <thead>
+            <tr>
+                <th class="border  border-black ">SN</th>
+                <th class="border  border-black ">Course Name</th>
+                <th class="border  border-black ">Image</th>
+                <th class="border  border-black ">Price</th>
+                <th class="border  border-black "></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr >
+                <td class="border  border-black ">{{forloop.counter}}</td>
+                <td class="border border-black ">{{i.course_object.title}}</td>
+                <td class="border border-black ">
+                    <a href="{% url 'course_details' i.course_object.id %}">
+                        <img src="{{i.course_object.course_picture.url}}" alt="" width="200px">
+                    </a>
+                    
+
+                </td>
+                {% if i.course_object.is_free %}
+                <td class="border  border-black ">FREE</td>
+                {% else %}
+                <td class="border  border-black ">{{i.course_object.price}}</td>
+                {% endif %}
+                <td class="border border-black ">
+                    <a href="{% url 'remwish' i.id %}">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h3 class="text-red-500 text-5xl text-center">Empty Wishlist</h3>
+    {% endif %}
+</div>
+<div class="px-3 py-1 mt-6">
+    <h3 class="text-xl text-center">Total Courses = <span>{{count}}</span></h3>
+</div>
+{% endblock base %}
