@@ -1,35 +1,24 @@
 {% extends 'base.html' %}
 {% block base %}
 <div class="w-full">
-    {% if messages %}
-    {% for msg in messages %}
-    {{msg}}
-    {% endfor %}
-    {% endif %}
-    <div class="bg-gray-800 grid grid-cols-1 md:grid-cols-2">
-        <div>
-            <img src="https://www.pngarts.com/files/1/E-Learning-PNG-High-Quality-Image.png" alt="hero_img"
-                width="100%">
-        </div>
-        <div class="flex flex-col justify-center items-center">
+{% if messages %}
+{% for i in messages %}
+{{i}}
+{% endfor %}
+{% endif %}
+    <div class="bg-black grid grid-cols-2 md:grid-cols-2">
+        <div><img src="https://png.pngtree.com/png-vector/20250205/ourmid/pngtree-remote-learning-platform-for-rural-areas-featuring-3d-icon-isolated-on-png-image_15381411.png" alt="hero_img"  height="350px" ></div>
+        <div class="flex flex-col justify-center items-center ">
             <h2 class="text-5xl text-white">
-                <i class="fa-solid fa-cloud fa-2xl" style="color:rgb(99,230,190);"></i>
-                CourseCloud
+                Course Cloud
+                 <i class="fa-solid fa-cloud " style="color: rgb(255, 212, 59);"></i>
             </h2>
-            <p class="text-white text-justify my-3">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo magni tenetur neque voluptatibus quia
-                atque, nihil eos iste officia quae sint, ipsam cupiditate accusamus commodi, expedita et aliquam
-                voluptatem eius. Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique totam temporibus
-                alias delectus ab debitis quaerat possimus vero odio atque, vitae nam mollitia id reprehenderit pariatur
-                accusantium laudantium rem nobis? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta, est.
-                Eaque dolorem officiis quibusdam itaque numquam earum reiciendis labore ea? Aliquam omnis pariatur,
-                molestias iste facere obcaecati expedita nisi perspiciatis!
-            </p>
-            <button class="bg-sky-600 px-3 py-1 w-[75%] border text-white shadow hover:bg-sky-800">Explore Now</button>
+          <p class="text-white text-justify my-3">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis laboriosam quam exercitationem voluptatibus alias nisi quos deserunt nesciunt nobis! Enim eligendi reprehenderit sit ea odio dolor facere eveniet optio id.</p>
+        <button class="bg-green-500 px-3 py-1 w-[75%] border text-white hover:bg-sky-800">Explore Now!</button>
         </div>
     </div>
     <div class="p-3">
-        <h1 class="text-4xl text-center mb-3">Popular courses</h1>
+        <h1 class="text-4xl text-center mb-3">Popular Courses</h1>
         {% if courses %}
         <div class="flex flex-wrap gap-2 justify-around">
             {% for i in courses %}
@@ -39,20 +28,28 @@
                     <h2 class="text-lg">{{i.title}}</h2>
                     <div class="text-sm">
                         {% for j in i.category.all %}
-                        <span>{{j.name}}</span> <b>|</b>
+                        <span>{{j.name}}</span><b>|</b>
                         {% endfor %}
                     </div>
+                    {% if i.is_free %}
+                    <h3 class="font-semibold flex items-center">FREE</h3>
+                    {% else %}
                     <h3 class="font-semibold flex items-center">
-                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                        <i class="fa-solid fa-indian-rupee-sign" style="color: rgb(14, 14, 13);"></i>
                         {{i.price}}
                     </h3>
-                    <a href="{% url 'course_details' i.id %}" class="bg-gray-700 text-white px-2 py-1 border shadow rounded w-full">View More</a>
+                    {% endif %}
+                    {% if i.id in purchased_courses %}
+                    <h3 class="bg-green-500 text-white">PURCHASED</h3>
+                    {% else %}
+                    <a href="{% url 'course_details' i.id %}" class="bg-gray-700 text-white px-2 py-1 border shadow rounded w-full ">View More</a>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}
         </div>
         {% else %}
-        <h4 class="text-center text-red-600 text-3xl">No Courses Available!!</h4>
+        <h4 class="text-center text-red-600 text-3xl">No Courses Added Yet !!!</h4>
         {% endif %}
     </div>
 </div>

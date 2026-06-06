@@ -7,7 +7,7 @@
     <div class="w-[16rem] border-2 shadow-2xl p-2">
         <img src="{{course.course_picture.url}}" alt="course_img" style="height: 150px; width: 100%;">
         <h3 class="text-xl my-1">{{course.title}}</h3>
-        <a href="" 
+        <a href="{% url 'viewlesson' course.id %}" 
         class="bg-gray-600 text-white border border-black w-full block text-center rounded py-2 px-1 hover:bg-gray-800">
         Start Learning</a>
     </div>
