@@ -14,19 +14,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
 from decouple import config
 
-
-
 RAZOR_PAY_KEY=config('RAZOR_PAY_KEY')
-RAZOR_PAY_SECRET_KEY=('RAZOR_PAY_SECRET_KEY')
-
-# signin required
+RAZOR_PAY_SECRET_KEY=config('RAZOR_PAY_SECRET_KEY')
 
 def signin_required(fn):
     def inner(request,*args,**kwargs):
         if request.user.is_authenticated:
             return fn(request,*args,**kwargs)
         else:
-            messages.warning(request,"please login first")
             return redirect('signin')
     return inner
 
@@ -68,13 +63,14 @@ class SignupView(CreateView):
     form_class=StudentSignUpForm
     success_url=reverse_lazy('signin')
 
-@method_decorator([csrf_exempt,never_cache],name="dispatch")
-class SignOutView(View):
+@method_decorator([signin_required,never_cache],name="dispatch")
+class LogoutView(View):
     def get(self,request):
         logout(request)
         return redirect('signin')
-    
-@method_decorator([csrf_exempt,never_cache],name="dispatch")
+
+
+@method_decorator([signin_required,never_cache],name="dispatch")
 class StudentHomeView(ListView):
     template_name='studenthome.html'
     queryset=Course.objects.all()
@@ -84,15 +80,16 @@ class StudentHomeView(ListView):
         purchased_courses=Order.objects.filter(student_object=self.request.user,is_paid=True).values_list("course_object",flat=True)
         context["purchased_courses"]=purchased_courses
         return context
-    
-@method_decorator([csrf_exempt,never_cache],name="dispatch")
+
+@method_decorator([signin_required,never_cache],name="dispatch")
 class CourseDetailsView(DetailView):
     template_name='coursedetails.html'
     queryset=Course.objects.all()
     pk_url_kwarg='cid'
     context_object_name='course'
 
-@method_decorator([csrf_exempt,never_cache],name="dispatch")
+
+@method_decorator([signin_required,never_cache],name="dispatch")
 class AddToCartView(View):
     def get(self,request,**kwargs):
         cid=kwargs.get('cid')
@@ -104,8 +101,9 @@ class AddToCartView(View):
         else:
             messages.warning(request,"Course Already Added To Cart !!!")
             return redirect('shome')
-        
-@method_decorator([csrf_exempt,never_cache],name="dispatch")  
+    
+
+@method_decorator([signin_required,never_cache],name="dispatch")
 class CartListView(View):
     def get(self,request):
         cart_list=Cart.objects.filter(student_object=request.user)
@@ -114,15 +112,16 @@ class CartListView(View):
         for i in cart_list:
             cart_total+=i.course_object.price
         return render(request,"cartlist.html",{"data":cart_list,"count":cart_count,"cart_total":cart_total})
-    
-@method_decorator([csrf_exempt,never_cache],name="dispatch")  
+
+@method_decorator([signin_required,never_cache],name="dispatch")
 class RemoveCartView(View):
     def get(self,request,**kwargs):
         cid=kwargs.get('cid')
         Cart.objects.get(id=cid).delete()
         return redirect('cartlist')
-    
-@method_decorator([csrf_exempt,never_cache],name="dispatch")
+
+
+@method_decorator([signin_required,never_cache],name="dispatch")
 class AddToWishlistView(View):
     def get(self,request,**kwargs):
         cid=kwargs.get('cid')
@@ -134,22 +133,24 @@ class AddToWishlistView(View):
         else:
               messages.warning(request,"Course Already Added To WishList !!!")
               return redirect('shome')
-        
-@method_decorator([csrf_exempt,never_cache],name="dispatch")
+
+@method_decorator([signin_required,never_cache],name="dispatch")
 class WishlistShowView(View):
     def get(self,request):
         wish_no=WishList.objects.filter(student_object=request.user)
         count=wish_no.count()
         return render(request,"wishlist.html",{"data":wish_no,"count":count})
-    
-@method_decorator([csrf_exempt,never_cache],name="dispatch")
+
+@method_decorator([signin_required,never_cache],name="dispatch")
 class RemoveWishlistView(View):
     def get(self,request,**kwargs):
         cid=kwargs.get('cid')
         WishList.objects.get(id=cid).delete()
         return redirect('wishlist')
     
-@method_decorator([csrf_exempt,never_cache],name="dispatch")
+
+
+@method_decorator([signin_required,never_cache],name="dispatch")
 class PlaceOrderView(View):
     def get(self,request):
         student=request.user
@@ -180,7 +181,7 @@ class PlaceOrderView(View):
             return redirect('shome')
         return redirect('shome')
     
-@method_decorator([csrf_exempt],name="dispatch")    
+@method_decorator(csrf_exempt,name="dispatch")    
 class PaymentVerify(View):
     def post(self,request):
         print(request.POST)
@@ -195,12 +196,14 @@ class PaymentVerify(View):
             print(e)
             print("Failed")
         return redirect('shome')
+
+@method_decorator([signin_required,never_cache],name="dispatch")
 class MyCourseView(View):
     def get(self,request):
         order_qs=Order.objects.filter(is_paid=True,student_object=request.user)
         return render(request,"mycourses.html",{"data":order_qs})
-    
-@method_decorator([csrf_exempt,never_cache],name="dispatch")
+
+@method_decorator([signin_required,never_cache],name="dispatch")
 class ViewLessonView(View):
     def get(self,request,**kwargs):
         cid=kwargs.get('cid')

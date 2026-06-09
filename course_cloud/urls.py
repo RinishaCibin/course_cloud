@@ -22,8 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',SigninView.as_view(),name="signin"),
     path('instructor/',include('instructor.urls')),
     path('student/',include('student.urls')),
-
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('',SigninView.as_view(),name='signin'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

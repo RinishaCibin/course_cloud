@@ -1,5 +1,5 @@
 from django.db import models
-from instructor.models import Course,User
+from instructor.models import User,Course
 
 # Create your models here.
 
@@ -9,7 +9,7 @@ class Cart(models.Model):
     added_at=models.DateTimeField(auto_now_add=True)
 
 class Order(models.Model):
-    course_object=models.ManyToManyField(Course,related_name="entrolled_course")
+    course_object=models.ManyToManyField(Course,related_name="enrolled_course")
     student_object=models.ForeignKey(User,on_delete=models.CASCADE,related_name="purchase")
     is_paid=models.BooleanField(default=False)
     razr_pay_order_id=models.CharField(max_length=100,null=True)
@@ -19,3 +19,4 @@ class Order(models.Model):
 class WishList(models.Model):
     course_object=models.ForeignKey(Course,on_delete=models.CASCADE,related_name="wish_course_items")
     student_object=models.ForeignKey(User,on_delete=models.CASCADE,related_name="wish_user_items")
+

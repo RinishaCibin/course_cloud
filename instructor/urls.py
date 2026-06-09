@@ -1,6 +1,6 @@
-from instructor.views import InstructorSignupView
 from django.urls import path
+from instructor.views import InstructorSignUpView
 
 urlpatterns=[
-    path('insignup',InstructorSignupView.as_view(),name="insreg")
+    path("instructorsignup",InstructorSignUpView.as_view(),name='insreg'),
 ]

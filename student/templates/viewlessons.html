@@ -32,7 +32,7 @@
         <div id="accordion-flush-body-{{module.id}}" class="" aria-labelledby="accordion-flush-heading-1">
 			<div class="py-5 border-b border-gray-200 dark:border-gray-700">
                 {% for lesson in module.lessons.all %}
-				<a href="" class="mb-2 text-cyan-600 block">
+				<a href="{% url 'viewlesson' course.id %}?lesson={{lesson.id}}" class="mb-2 text-cyan-600 block">
                     <i class="fa-solid fa-play"></i>
                     {{lesson}}
                 </a>
